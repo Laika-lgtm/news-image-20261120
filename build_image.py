@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Build the 1024x1024 front-page image for news-image-20261120.
 
-Hero artwork was generated in-session (AI image, no text). All headlines
-and labels are drawn here with PIL so every word is crisp and accurate.
+Hero artwork was generated in ChatGPT (Tri's request, 20 Nov 2026, no text
+in the artwork). All headlines and labels are drawn here with PIL so every
+word is crisp and accurate.
 Output: entry.png (JPEG bytes under the .png name, allowed by RULES.txt:
 the file is told apart by its first bytes; the name stays entry.png).
 """
@@ -54,14 +55,16 @@ def main():
            fill=RED, anchor="ma")
     d.line([(28, 122), (W - 28, 122)], fill=NAVY, width=3)
 
-    # --- hero band (AI artwork, no text in it) ---
-    hero = Image.open("assets/media-generation-hero-summit-0-2d877a3d-9b2b-49fe-9985-8abf486c03a1.png").convert("RGB")
+    # --- hero band (ChatGPT artwork, no text in it) ---
+    hero = Image.open("assets/hero-chatgpt.png").convert("RGB")
     hw, hh = hero.size
     target_w, target_h = 968, 330
     scale = max(target_w / hw, target_h / hh)
     hero = hero.resize((int(hw * scale + 0.5), int(hh * scale + 0.5)), Image.LANCZOS)
+    # crop biased to the upper-middle (focus 0.35): keeps the three faces
+    # and the handshake, trims the dove at the top and the flowers below
     x0 = (hero.width - target_w) // 2
-    y0 = (hero.height - target_h) // 2
+    y0 = int((hero.height - target_h) * 0.35)
     hero = hero.crop((x0, y0, x0 + target_w, y0 + target_h))
     img.paste(hero, (28, 134))
     d.rectangle([28, 134, 28 + 968, 134 + 330], outline=NAVY, width=3)
