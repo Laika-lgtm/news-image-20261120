@@ -65,10 +65,10 @@ def main():
     hero = hero.crop((x0, y0, x0 + target_w, y0 + target_h))
     img.paste(hero, (28, 134))
     d.rectangle([28, 134, 28 + 968, 134 + 330], outline=NAVY, width=3)
-    # caption strip over hero bottom
+    # caption strip over hero bottom, text centred in the strip
     d.rectangle([28, 434, 28 + 968, 464], fill=NAVY)
-    d.text((W // 2, 440), "TRUMP, XI AND PUTIN MEET IN SHENZHEN",
-           font=font(SANS_B, 20), fill=(255, 255, 255), anchor="ma")
+    d.text((W // 2, 449), "TRUMP, XI AND PUTIN MEET IN SHENZHEN",
+           font=font(SANS_B, 20), fill=(255, 255, 255), anchor="mm")
 
     # --- story rows ---
     stories = [
